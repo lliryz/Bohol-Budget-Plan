@@ -3,224 +3,315 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bohol Trip Budget Plan</title>
+  <title>Bohol Trip w d1s</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --sand:    #f5efe6;
+      --cream:   #fdf8f1;
+      --brown:   #6b3f1e;
+      --teal:    #1a7f6e;
+      --teal-lt: #d0ede9;
+      --warm:    #c8823a;
+      --warm-lt: #fce9d0;
+      --ink:     #1c1008;
+      --muted:   #8a6f52;
+      --white:   #ffffff;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: #f5f7fb;
-      color: #1f2937;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
       line-height: 1.6;
     }
 
+    /* ── HEADER ── */
+    header {
+      background: var(--brown);
+      color: var(--white);
+      padding: 70px 0 55px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(200,130,58,.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 90%, rgba(26,127,110,.25) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* wave bottom */
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
     .container {
-      width: min(1200px, 92%);
+      width: min(1160px, 92%);
       margin: auto;
     }
 
-    header {
-      background: linear-gradient(135deg, #0f172a, #1e3a8a);
-      color: white;
-      padding: 80px 0 60px;
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .hero-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 14px;
+      opacity: .9;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--white);
     }
 
-    .hero p {
-      max-width: 800px;
-      font-size: 1.05rem;
-      opacity: 0.9;
+    .hero h1 span {
+      color: #f5c97a;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 36px;
     }
 
     .stat-card {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      padding: 24px;
-      border-radius: 20px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 20px 22px;
+      border-radius: 18px;
+      backdrop-filter: blur(6px);
     }
 
     .stat-card h3 {
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      margin-bottom: 8px;
+      color: #f5c97a;
+      margin-bottom: 4px;
     }
 
+    .stat-card p {
+      font-size: .85rem;
+      opacity: .75;
+    }
+
+    /* ── SECTIONS ── */
     section {
-      padding: 60px 0;
+      padding: 64px 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--sand);
     }
 
     .section-title {
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
 
     .section-title h2 {
+      font-family: 'Playfair Display', serif;
       font-size: 2rem;
-      margin-bottom: 10px;
+      color: var(--brown);
+      margin-bottom: 6px;
     }
 
     .section-title p {
-      color: #6b7280;
+      color: var(--muted);
+      font-size: .92rem;
     }
 
+    /* ── GRID / CARDS ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
     }
 
     .card {
-      background: white;
-      border-radius: 24px;
+      background: var(--white);
+      border-radius: 22px;
       padding: 26px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-      border: 1px solid #e5e7eb;
+      border: 1px solid rgba(107,63,30,.12);
+      box-shadow: 0 6px 28px rgba(107,63,30,.07);
     }
 
     .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--brown);
       margin-bottom: 18px;
-      font-size: 1.35rem;
-      color: #111827;
     }
 
     .tag {
       display: inline-block;
-      background: #dbeafe;
-      color: #1d4ed8;
-      padding: 6px 12px;
+      background: var(--warm-lt);
+      color: var(--warm);
+      padding: 5px 14px;
       border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 18px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
     }
 
+    .tag.teal {
+      background: var(--teal-lt);
+      color: var(--teal);
+    }
+
+    /* ── BUDGET TABLE ── */
     .budget-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
     }
 
     .budget-table tr {
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid #efe5d8;
+    }
+
+    .budget-table tr:last-child {
+      border-bottom: none;
     }
 
     .budget-table td {
-      padding: 12px 0;
-      font-size: 0.95rem;
+      padding: 11px 0;
+      font-size: .93rem;
+      color: #3d2612;
     }
 
     .budget-table td:last-child {
       text-align: right;
       font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
 
     .total {
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 16px;
-      background: #eff6ff;
-      font-weight: 700;
-      color: #1e40af;
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brown), #8a501f);
+      color: var(--white);
       display: flex;
       justify-content: space-between;
-    }
-
-    #map {
-      height: 600px;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid #d1d5db;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-    }
-
-    .sources {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .source-link {
-      background: white;
-      border-radius: 18px;
-      padding: 20px;
-      border: 1px solid #e5e7eb;
-      text-decoration: none;
-      color: #111827;
-      transition: 0.2s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    }
-
-    .source-link:hover {
-      transform: translateY(-4px);
-      border-color: #2563eb;
-    }
-
-    .source-link h4 {
-      margin-bottom: 10px;
+      font-weight: 700;
       font-size: 1rem;
     }
 
+    /* ── MAP ── */
+    #map {
+      height: 560px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(107,63,30,.15);
+      box-shadow: 0 8px 32px rgba(107,63,30,.1);
+    }
+
+    /* ── SOURCES ── */
+    .sources {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .source-link {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 1px solid rgba(107,63,30,.12);
+      text-decoration: none;
+      color: var(--ink);
+      transition: .2s ease;
+      box-shadow: 0 3px 14px rgba(107,63,30,.05);
+    }
+
+    .source-link:hover {
+      transform: translateY(-3px);
+      border-color: var(--teal);
+    }
+
+    .source-link h4 {
+      margin-bottom: 6px;
+      font-size: .95rem;
+      color: var(--brown);
+    }
+
     .source-link p {
-      color: #6b7280;
-      font-size: 0.9rem;
+      color: var(--muted);
+      font-size: .82rem;
       word-break: break-word;
     }
 
+    /* ── ADJUSTMENTS LIST ── */
+    .adj-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .adj-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .93rem;
+      color: #3d2612;
+    }
+
+    .adj-list li::before {
+      content: '🌴';
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── FOOTER ── */
     footer {
-      background: #0f172a;
-      color: #cbd5e1;
+      background: var(--brown);
+      color: rgba(255,255,255,.55);
       text-align: center;
-      padding: 40px 20px;
-      margin-top: 50px;
+      padding: 36px 20px;
+      font-size: .85rem;
     }
 
-    .highlight {
-      color: #2563eb;
-      font-weight: 700;
+    footer strong {
+      color: #f5c97a;
     }
 
+    /* ── DIVIDER ── */
+    .divider-wave {
+      height: 50px;
+      background: var(--sand);
+      clip-path: ellipse(55% 100% at 50% 0%);
+      margin-bottom: -2px;
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      header {
-        padding: 60px 0 40px;
-      }
-
-      .card {
-        padding: 22px;
-      }
-
-      #map {
-        height: 450px;
-      }
+      header { padding: 50px 0 60px; }
+      .card { padding: 20px; }
+      #map { height: 400px; }
     }
   </style>
 </head>
@@ -228,34 +319,24 @@
 
 <header>
   <div class="container hero">
-    <div>
-      <h1>Bohol 4-Day Itinerary</h1>
-      <p>
-        Complete budget plan for 7 persons with estimated transportation costs,
-        entrance fees, accommodation, activities, and an interactive map of the destinations.
-        Boat fare is excluded from the budget.
-      </p>
-    </div>
-
+    <p class="hero-label">4 Days · 7 Pax · Bohol PH</p>
+    <h1>Bohol Trip <span>w d1s</span><br>Budget Plan</h1>
     <div class="stats">
       <div class="stat-card">
         <h3>₱40k</h3>
         <p>Total target budget</p>
       </div>
-
       <div class="stat-card">
         <h3>7 Pax</h3>
         <p>Group size</p>
       </div>
-
       <div class="stat-card">
         <h3>4 Days</h3>
         <p>Trip duration</p>
       </div>
-
       <div class="stat-card">
         <h3>~₱5.7k</h3>
-        <p>Estimated cost per person</p>
+        <p>Est. per person</p>
       </div>
     </div>
   </div>
@@ -265,113 +346,54 @@
   <div class="container">
     <div class="section-title">
       <h2>Budget Breakdown</h2>
-      <p>Estimated prices based on current public rates and local transportation averages.</p>
+      <p>All prices are estimates (~) and may vary by season or negotiation. Boat fare excluded.</p>
     </div>
 
     <div class="grid">
 
       <div class="card">
-        <span class="tag">DAY 1</span>
+        <span class="tag">Day 1</span>
         <h3>Ubay → Alicia → Anda → Loay</h3>
-
         <table class="budget-table">
-          <tr>
-            <td>Van + Driver</td>
-            <td>₱6,500</td>
-          </tr>
-          <tr>
-            <td>Alicia Panoramic Park</td>
-            <td>₱1,300</td>
-          </tr>
-          <tr>
-            <td>Anda Stops + Cottage</td>
-            <td>₱1,000</td>
-          </tr>
-          <tr>
-            <td>Optional Falls Stop</td>
-            <td>₱1,000</td>
-          </tr>
+          <tr><td>Van</td><td>~₱6,500</td></tr>
+          <tr><td>Alicia Panoramic Park</td><td>~₱1,300</td></tr>
+          <tr><td>Anda Stops + Cottage</td><td>~₱1,000</td></tr>
+          <tr><td>Optional Falls Stop</td><td>~₱1,000</td></tr>
         </table>
-
-        <div class="total">
-          <span>Total</span>
-          <span>₱9,800</span>
-        </div>
+        <div class="total"><span>Total</span><span>~₱9,800</span></div>
       </div>
 
       <div class="card">
-        <span class="tag">DAY 2</span>
+        <span class="tag">Day 2</span>
         <h3>Danao → Loboc → Sikatuna</h3>
-
         <table class="budget-table">
-          <tr>
-            <td>Van + Driver</td>
-            <td>₱5,000</td>
-          </tr>
-          <tr>
-            <td>Danao Adventure Park</td>
-            <td>₱4,350</td>
-          </tr>
-          <tr>
-            <td>Loboc River Cruise</td>
-            <td>₱6,300</td>
-          </tr>
-          <tr>
-            <td>Mirror of the World</td>
-            <td>₱1,190</td>
-          </tr>
+          <tr><td>Van</td><td>~₱5,000</td></tr>
+          <tr><td>Danao Adventure Park</td><td>~₱4,350</td></tr>
+          <tr><td>Loboc River Cruise</td><td>~₱6,300</td></tr>
+          <tr><td>Mirror of the World</td><td>~₱1,190</td></tr>
         </table>
-
-        <div class="total">
-          <span>Total</span>
-          <span>₱16,840</span>
-        </div>
+        <div class="total"><span>Total</span><span>~₱16,840</span></div>
       </div>
 
       <div class="card">
-        <span class="tag">DAY 3</span>
+        <span class="tag teal">Day 3</span>
         <h3>Move to Panglao</h3>
-
         <table class="budget-table">
-          <tr>
-            <td>Airbnb (7 Pax)</td>
-            <td>₱6,000</td>
-          </tr>
-          <tr>
-            <td>Food Budget</td>
-            <td>₱3,500</td>
-          </tr>
-          <tr>
-            <td>Miscellaneous</td>
-            <td>₱1,500</td>
-          </tr>
+          <tr><td>Airbnb (7 Pax)</td><td>~₱6,000</td></tr>
+          <tr><td>Food Budget</td><td>~₱3,500</td></tr>
+          <tr><td>Miscellaneous</td><td>~₱1,500</td></tr>
         </table>
-
-        <div class="total">
-          <span>Total</span>
-          <span>₱11,000</span>
-        </div>
+        <div class="total"><span>Total</span><span>~₱11,000</span></div>
       </div>
 
       <div class="card">
-        <span class="tag">DAY 4</span>
+        <span class="tag teal">Day 4</span>
         <h3>Going Home</h3>
-
         <table class="budget-table">
-          <tr>
-            <td>Food</td>
-            <td>₱1,500</td>
-          </tr>
-          <tr>
-            <td>Local Transport</td>
-            <td>₱1,500</td>
-          </tr>
+          <tr><td>Food</td><td>~₱1,500</td></tr>
+          <tr><td>Local Transport</td><td>~₱1,500</td></tr>
         </table>
-
-        <div class="total">
-          <span>Total</span>
-          <span>₱3,000</span>
-        </div>
+        <div class="total"><span>Total</span><span>~₱3,000</span></div>
       </div>
 
     </div>
@@ -382,9 +404,8 @@
   <div class="container">
     <div class="section-title">
       <h2>Interactive Trip Map</h2>
-      <p>Major destinations included in the itinerary.</p>
+      <p>Major destinations in the itinerary.</p>
     </div>
-
     <div id="map"></div>
   </div>
 </section>
@@ -393,45 +414,27 @@
   <div class="container">
     <div class="section-title">
       <h2>Budget Summary</h2>
-      <p>Final estimated trip expenses excluding ferry or boat fares.</p>
+      <p>Final estimated trip expenses. Boat fare excluded.</p>
     </div>
 
     <div class="grid">
       <div class="card">
-        <h3>Total Estimated Budget</h3>
-
+        <h3>Grand Total</h3>
         <table class="budget-table">
-          <tr>
-            <td>Day 1</td>
-            <td>₱9,800</td>
-          </tr>
-          <tr>
-            <td>Day 2</td>
-            <td>₱16,840</td>
-          </tr>
-          <tr>
-            <td>Day 3</td>
-            <td>₱11,000</td>
-          </tr>
-          <tr>
-            <td>Day 4</td>
-            <td>₱3,000</td>
-          </tr>
+          <tr><td>Day 1</td><td>~₱9,800</td></tr>
+          <tr><td>Day 2</td><td>~₱16,840</td></tr>
+          <tr><td>Day 3</td><td>~₱11,000</td></tr>
+          <tr><td>Day 4</td><td>~₱3,000</td></tr>
         </table>
-
-        <div class="total">
-          <span>Grand Total</span>
-          <span>₱40,640</span>
-        </div>
+        <div class="total"><span>Grand Total</span><span>~₱40,640</span></div>
       </div>
 
       <div class="card">
         <h3>Recommended Adjustments</h3>
-
-        <ul style="padding-left: 18px; display:flex; flex-direction:column; gap:12px; color:#4b5563;">
-          <li>Reduce Airbnb cost to ₱5k if booking early.</li>
-          <li>Limit Danao extreme rides to stay under budget.</li>
-          <li>Skip island hopping to save more money.</li>
+        <ul class="adj-list">
+          <li>Book Airbnb early to hit ~₱5k instead of ₱6k.</li>
+          <li>Limit Danao extreme rides to save budget.</li>
+          <li>Skip island hopping for extra savings.</li>
           <li>Book van drivers directly for better rates.</li>
           <li>Boat fares are excluded from computation.</li>
         </ul>
@@ -444,58 +447,47 @@
   <div class="container">
     <div class="section-title">
       <h2>Sources & References</h2>
-      <p>Tourist spot information, rates, and travel references.</p>
+      <p>Tourist spot info, rates, and travel references.</p>
     </div>
 
     <div class="sources">
-
       <a class="source-link" target="_blank" href="https://geopark.bohol.gov.ph/en/the-alicia-panoramic-park/">
         <h4>Alicia Panoramic Park</h4>
-        <p>https://geopark.bohol.gov.ph</p>
+        <p>geopark.bohol.gov.ph</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://www.reddit.com/r/PHikingAndBackpacking/comments/1qe2045/the_alicia_panoramic_park_tapp/">
         <h4>Alicia Entrance Fee Discussion</h4>
         <p>reddit.com</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://thefroggyadventures.com/cabagnow-cave-pool-bohol/">
         <h4>Cabagnow Cave Pool</h4>
         <p>thefroggyadventures.com</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://www.danaoadventurepark.com/">
         <h4>Danao Adventure Park</h4>
         <p>danaoadventurepark.com</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://boholautorental.com/a-visitors-guide-to-the-sikatuna-mirror-of-the-world/">
         <h4>Mirror of the World Guide</h4>
         <p>boholautorental.com</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://infobohol.com/mirror-of-the-world-sikatuna-bohol/">
         <h4>Mirror of the World Rates</h4>
         <p>infobohol.com</p>
       </a>
-
       <a class="source-link" target="_blank" href="https://www.airbnb.com/s/Panglao--Bohol--Philippines/homes">
         <h4>Panglao Airbnb Listings</h4>
         <p>airbnb.com</p>
       </a>
-
     </div>
   </div>
 </section>
 
 <footer>
-  <p>
-    Bohol Trip Planner • Responsive Single File Website • Budget estimates may vary depending on season and negotiations.
-  </p>
+  <p><strong>Bohol Trip w d1s</strong> · Budget estimates may vary depending on season and negotiations.</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
   const map = L.map('map').setView([9.877, 124.215], 10);
 
@@ -504,65 +496,30 @@
   }).addTo(map);
 
   const locations = [
-    {
-      name: 'Ubay',
-      coords: [10.0626, 124.4720],
-      desc: 'Arrival Point'
-    },
-    {
-      name: 'Alicia Panoramic Park',
-      coords: [9.8942, 124.5374],
-      desc: 'Scenic hiking destination'
-    },
-    {
-      name: 'Anda',
-      coords: [9.7434, 124.5764],
-      desc: 'Beach and cave pools'
-    },
-    {
-      name: 'Loay',
-      coords: [9.6007, 124.0140],
-      desc: 'Rest area / home base'
-    },
-    {
-      name: 'Danao Adventure Park',
-      coords: [9.9357, 124.1862],
-      desc: 'Extreme rides and activities'
-    },
-    {
-      name: 'Loboc River Cruise',
-      coords: [9.6380, 124.0346],
-      desc: 'Buffet lunch cruise'
-    },
-    {
-      name: 'Mirror of the World',
-      coords: [9.6886, 123.9969],
-      desc: 'Tourist attraction in Sikatuna'
-    },
-    {
-      name: 'Panglao',
-      coords: [9.5781, 123.7458],
-      desc: 'Airbnb and beach stay'
-    }
+    { name: 'Ubay', coords: [10.0626, 124.4720], desc: 'Arrival Point' },
+    { name: 'Alicia Panoramic Park', coords: [9.8942, 124.5374], desc: 'Scenic hiking destination' },
+    { name: 'Anda', coords: [9.7434, 124.5764], desc: 'Beach and cave pools' },
+    { name: 'Loay', coords: [9.6007, 124.0140], desc: 'Rest area / home base' },
+    { name: 'Danao Adventure Park', coords: [9.9357, 124.1862], desc: 'Extreme rides and activities' },
+    { name: 'Loboc River Cruise', coords: [9.6380, 124.0346], desc: 'Buffet lunch cruise' },
+    { name: 'Mirror of the World', coords: [9.6886, 123.9969], desc: 'Tourist attraction in Sikatuna' },
+    { name: 'Panglao', coords: [9.5781, 123.7458], desc: 'Airbnb and beach stay' }
   ];
 
   const routeCoords = [];
 
-  locations.forEach(location => {
-    L.marker(location.coords)
+  locations.forEach(loc => {
+    L.marker(loc.coords)
       .addTo(map)
-      .bindPopup(`
-        <strong>${location.name}</strong><br>
-        ${location.desc}
-      `);
-
-    routeCoords.push(location.coords);
+      .bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+    routeCoords.push(loc.coords);
   });
 
   L.polyline(routeCoords, {
-    color: '#2563eb',
+    color: '#1a7f6e',
     weight: 4,
-    opacity: 0.8
+    opacity: 0.8,
+    dashArray: '10, 6'
   }).addTo(map);
 </script>
 
