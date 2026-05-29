@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bohol Trip w D1s — Budget Plan</title>
+  <title>Bohol Trip w D1s — Updated Budget Plan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -254,6 +254,7 @@
     .icon-pink { background: #fce7f3; color: #be185d; }
     .icon-teal { background: #ccfbf1; color: #0f766e; }
     .icon-purple { background: #ede9fe; color: #6d28d9; }
+    .icon-orange { background: #ffedd5; color: #c2410c; }
 
     .row-right {
       display: flex;
@@ -313,6 +314,33 @@
       font-weight: 700;
       flex-shrink: 0;
     }
+
+    .free-label {
+      font-size: 0.7rem;
+      background: #dcfce7;
+      color: #166534;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ─── ACTIVITY TABLE ─────────────────────────────── */
+
+    .activity-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    .activity-table th {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ink-light);
+      padding: 6px 0 8px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+    }
+    .activity-table th:last-child { text-align: right; }
+    .activity-table td { padding: 7px 0; font-size: 0.88rem; color: var(--ink-mid); border-bottom: 1px solid #f1f5f9; }
+    .activity-table td:last-child { text-align: right; font-weight: 600; color: var(--ink); }
 
     /* ─── MAP ───────────────────────────────────────────── */
 
@@ -398,37 +426,38 @@
       font-size: 1.1rem;
     }
 
-    /* optimizations */
-
-    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
-
-    .opt-block { padding: 14px 16px; border-radius: var(--radius-sm); }
-    .opt-block.cuts { background: #fff1f2; border: 1px solid #fecdd3; }
-    .opt-block.kept { background: #f0f9ff; border: 1px solid #bae6fd; }
-
-    .opt-block h5 {
-      font-size: 0.73rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 10px;
-    }
-
-    .opt-block.cuts h5 { color: #9f1239; }
-    .opt-block.kept h5 { color: #0369a1; }
-
-    .opt-block ul { padding-left: 15px; display: flex; flex-direction: column; gap: 6px; }
-    .opt-block ul li { font-size: 0.86rem; color: var(--ink-mid); }
-
-    .note-block {
-      margin-top: 14px;
-      padding: 14px 16px;
+    /* cost drivers */
+    .drivers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .driver-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
       background: #f8fafc;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--ink-light);
-      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+    .driver-left { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--ink); }
+    .driver-note { font-size: 0.8rem; color: var(--ink-light); font-weight: 400; }
+    .driver-right { font-weight: 700; color: var(--ocean-dark); font-size: 0.92rem; }
+
+    /* notes */
+    .notes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .notes-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .notes-list li::before {
+      content: '→';
+      color: var(--ocean);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
     /* ─── SOURCES ───────────────────────────────────────── */
@@ -452,7 +481,6 @@
     }
 
     .source-link:hover { transform: translateY(-3px); border-color: var(--ocean); }
-
     .source-link h4 { font-size: 0.94rem; font-weight: 600; margin-bottom: 6px; }
     .source-link p { color: var(--ink-light); font-size: 0.83rem; word-break: break-word; }
 
@@ -469,17 +497,12 @@
 
     footer span { color: var(--ocean-mid); font-weight: 600; }
 
-    /* ─── DIVIDER WAVE ──────────────────────────────────── */
-
-    .wave-divider { display: block; width: 100%; line-height: 0; }
-
     /* ─── RESPONSIVE ─────────────────────────────────────── */
 
     @media (max-width: 768px) {
       header { padding: 60px 0 50px; }
       .card { padding: 22px; }
       #map { height: 400px; }
-      .opt-grid { grid-template-columns: 1fr; }
       .day-card-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -494,14 +517,14 @@
     </svg>
   </div>
   <div class="container hero">
-    <div class="hero-eyebrow">Bohol, Philippines — 4-Day Trip</div>
+    <div class="hero-eyebrow">Bohol, Philippines — June 4–7, 2026</div>
     <h1>Bohol Trip w D1s</h1>
-    <div class="sub">Budget Plan</div>
+    <div class="sub">Updated Budget Plan</div>
 
     <div class="stats">
       <div class="stat-card">
         <h3>₱40k</h3>
-        <p>Total target budget</p>
+        <p>Total budget cap</p>
       </div>
       <div class="stat-card">
         <h3>7 Pax</h3>
@@ -512,8 +535,12 @@
         <p>Trip duration</p>
       </div>
       <div class="stat-card">
-        <h3>~₱5.7k</h3>
-        <p>Per person estimate</p>
+        <h3>~₱38.5k</h3>
+        <p>Estimated grand total</p>
+      </div>
+      <div class="stat-card">
+        <h3>~₱1.5k</h3>
+        <p>Remaining buffer</p>
       </div>
     </div>
   </div>
@@ -525,7 +552,7 @@
     <div class="section-title">
       <div class="eyebrow">Itinerary</div>
       <h2>Budget Breakdown</h2>
-      <p>Tap any activity to see the per-item cost breakdown. Boat fares excluded.</p>
+      <p>Tap any activity to see the per-item cost breakdown. Boat fares excluded. Transportation: Self-drive Car Rental.</p>
     </div>
 
     <div class="days-stack">
@@ -534,29 +561,161 @@
       <div class="day-card">
         <div class="day-card-header">
           <div class="day-label-group">
-            <span class="day-badge d1">Day 1</span>
-            <span class="day-title">Ubay &rarr; Alicia &rarr; Anda &rarr; Loay</span>
+            <span class="day-badge d1">Day 1 — June 4</span>
+            <span class="day-title">Cebu → Tagbilaran → Danao → Loay</span>
           </div>
-          <span class="day-total">~₱7,570</span>
+          <span class="day-total">~₱10,950</span>
         </div>
         <div class="itinerary-list">
 
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-blue">&#128652;</span>
-                Van (no driver)
+                <span class="row-icon icon-blue">&#128664;</span>
+                Car Rental
               </div>
               <div class="row-right">
-                <span class="item-price">₱5,000</span>
+                <span class="item-price">₱3,000</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Van rental (no driver, full day)</td><td>~₱5,000</td></tr>
+                <tr><td>Self-drive car rental (Day 1)</td><td>~₱3,000</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱5,000</span></div>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,000</span></div>
+            </div>
+          </div>
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-pink">&#127906;</span>
+                Danao Adventure Park
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱3,450</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Entrance fee (~₱50/head × 7)</td><td>~₱350</td></tr>
+              </table>
+              <p style="font-size:0.83rem; color:var(--ink-light); margin: 10px 0 6px; font-weight:600;">Planned Activity Allocation</p>
+              <table class="activity-table">
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th>Pax</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Suislide Zipline</td><td>4 pax</td><td>₱350 each</td><td>~₱1,400</td></tr>
+                  <tr><td>SkyRide</td><td>4 pax</td><td>₱250 each</td><td>~₱1,000</td></tr>
+                  <tr><td>The Plunge</td><td>1 pax</td><td>₱700 each</td><td>~₱700</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:0.8rem; color:var(--ink-light); margin-top:8px;">Other possible activities: River activities, sightseeing. Budget is flexible depending on final choices.</p>
+              <div class="detail-subtotal"><span>Subtotal (entrance + activities)</span><span>₱3,450</span></div>
+            </div>
+          </div>
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-green">&#127807;</span>
+                Spontaneous Stops Near Danao
+                <span class="optional-label">Optional</span>
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱1,000</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Rice terraces</td><td>—</td></tr>
+                <tr><td>Hanging bridge areas</td><td>—</td></tr>
+                <tr><td>Roadside mountain viewpoints</td><td>—</td></tr>
+                <tr><td>Small local cafés</td><td>—</td></tr>
+              </table>
+              <p style="font-size:0.8rem; color:var(--ink-light); margin-top:8px;">Quick optional stops depending on time and energy.</p>
+              <div class="detail-subtotal"><span>Allocation</span><span>~₱1,000</span></div>
+            </div>
+          </div>
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-amber">&#127859;</span>
+                Food (Day 1)
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱3,500</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Group meals (~₱500/head × 7)</td><td>~₱3,500</td></tr>
+              </table>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,500</span></div>
+            </div>
+          </div>
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-teal">&#127968;</span>
+                Overnight Stay — Loay
+                <span class="free-label">Free</span>
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱0</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Sleep at friend's house in Loay</td><td>₱0</td></tr>
+              </table>
+              <div class="detail-subtotal"><span>Accommodation cost</span><span>₱0</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DAY 2 -->
+      <div class="day-card">
+        <div class="day-card-header">
+          <div class="day-label-group">
+            <span class="day-badge d2">Day 2 — June 5</span>
+            <span class="day-title">Loay → Alicia → Anda → Can-Umantad Falls → Loay</span>
+          </div>
+          <span class="day-total">~₱9,070</span>
+        </div>
+        <div class="itinerary-list">
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-blue">&#128664;</span>
+                Car Rental
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱3,000</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Self-drive car rental (Day 2)</td><td>~₱3,000</td></tr>
+              </table>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,000</span></div>
             </div>
           </div>
 
@@ -593,7 +752,7 @@
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Entrance (~₱30/head × 7)</td><td>~₱210</td></tr>
+                <tr><td>Entrance fee (~₱30/head × 7)</td><td>~₱210</td></tr>
                 <tr><td>Cottage rental</td><td>~₱300</td></tr>
               </table>
               <div class="detail-subtotal"><span>Subtotal</span><span>₱510</span></div>
@@ -603,9 +762,8 @@
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-amber">&#127811;</span>
+                <span class="row-icon icon-purple">&#127811;</span>
                 Can-Umantad Falls
-                <span class="optional-label">Optional</span>
               </div>
               <div class="row-right">
                 <span class="item-price">₱760</span>
@@ -614,101 +772,49 @@
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Entrance (~₱80/head × 7)</td><td>~₱560</td></tr>
+                <tr><td>Entrance fee (~₱80/head × 7)</td><td>~₱560</td></tr>
                 <tr><td>Cottage rental</td><td>~₱200</td></tr>
               </table>
               <div class="detail-subtotal"><span>Subtotal</span><span>₱760</span></div>
             </div>
           </div>
 
-        </div>
-      </div>
-
-      <!-- DAY 2 -->
-      <div class="day-card">
-        <div class="day-card-header">
-          <div class="day-label-group">
-            <span class="day-badge d2">Day 2</span>
-            <span class="day-title">Danao &rarr; Loboc &rarr; Sikatuna</span>
-          </div>
-          <span class="day-total">~₱16,040</span>
-        </div>
-        <div class="itinerary-list">
-
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-blue">&#128652;</span>
-                Van (no driver)
+                <span class="row-icon icon-amber">&#127859;</span>
+                Food (Day 2)
               </div>
               <div class="row-right">
-                <span class="item-price">₱5,000</span>
+                <span class="item-price">₱3,500</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Van rental (no driver, full day)</td><td>~₱5,000</td></tr>
+                <tr><td>Group meals (~₱500/head × 7)</td><td>~₱3,500</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱5,000</span></div>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,500</span></div>
             </div>
           </div>
 
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-pink">&#127906;</span>
-                Danao Adventure Park
+                <span class="row-icon icon-teal">&#127968;</span>
+                Overnight Stay — Loay
+                <span class="free-label">Free</span>
               </div>
               <div class="row-right">
-                <span class="item-price">₱3,550</span>
+                <span class="item-price">₱0</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Entrance (~₱50/head × 7)</td><td>~₱350</td></tr>
-                <tr><td>Activities (reduced package)</td><td>~₱3,200</td></tr>
+                <tr><td>Return to friend's house in Loay</td><td>₱0</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,550</span></div>
-            </div>
-          </div>
-
-          <div class="itinerary-item">
-            <div class="itinerary-row" onclick="toggleItem(this)">
-              <div class="row-left">
-                <span class="row-icon icon-teal">&#127869;</span>
-                Loboc River Cruise
-              </div>
-              <div class="row-right">
-                <span class="item-price">₱6,300</span>
-                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-            </div>
-            <div class="itinerary-detail">
-              <table class="detail-table">
-                <tr><td>Buffet lunch cruise (~₱900/head × 7)</td><td>~₱6,300</td></tr>
-              </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱6,300</span></div>
-            </div>
-          </div>
-
-          <div class="itinerary-item">
-            <div class="itinerary-row" onclick="toggleItem(this)">
-              <div class="row-left">
-                <span class="row-icon icon-purple">&#127981;</span>
-                Mirror of the World (Sikatuna)
-              </div>
-              <div class="row-right">
-                <span class="item-price">₱1,190</span>
-                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-            </div>
-            <div class="itinerary-detail">
-              <table class="detail-table">
-                <tr><td>Entrance (~₱170/head × 7)</td><td>~₱1,190</td></tr>
-              </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱1,190</span></div>
+              <div class="detail-subtotal"><span>Accommodation cost</span><span>₱0</span></div>
             </div>
           </div>
 
@@ -719,10 +825,10 @@
       <div class="day-card">
         <div class="day-card-header">
           <div class="day-label-group">
-            <span class="day-badge d3">Day 3</span>
-            <span class="day-title">Move to Panglao &mdash; Beach Stay</span>
+            <span class="day-badge d3">Day 3 — June 6</span>
+            <span class="day-title">Move to Panglao — Beach Stay</span>
           </div>
-          <span class="day-total">~₱9,500</span>
+          <span class="day-total">~₱8,950</span>
         </div>
         <div class="itinerary-list">
 
@@ -730,18 +836,43 @@
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
                 <span class="row-icon icon-teal">&#127968;</span>
-                Airbnb (downgraded / not sure)
+                Airbnb Check-in
               </div>
               <div class="row-right">
-                <span class="item-price">₱5,500</span>
+                <span class="item-price">₱4,600</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Airbnb accommodation, 7 pax, Panglao Island</td><td>~₱5,500</td></tr>
+                <tr><td>Airbnb (Panglao Island) — check-in 12:00 NN</td><td>~₱4,600</td></tr>
+                <tr><td>Status</td><td>Already booked ✓</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱5,500</span></div>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱4,600</span></div>
+            </div>
+          </div>
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-blue">&#127958;</span>
+                Panglao Activities
+                <span class="free-label">Mostly Free</span>
+              </div>
+              <div class="row-right">
+                <span class="item-price">—</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Ocean swimming</td><td>Free</td></tr>
+                <tr><td>Beach tambay / chill</td><td>Free</td></tr>
+                <tr><td>Food trip</td><td>Covered in food budget</td></tr>
+                <tr><td>Sunset viewing</td><td>Free</td></tr>
+              </table>
+              <p style="font-size:0.8rem; color:var(--ink-light); margin-top:8px;">Activities mostly free unless entering private beaches.</p>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱0 (covered)</span></div>
             </div>
           </div>
 
@@ -749,25 +880,25 @@
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
                 <span class="row-icon icon-amber">&#127859;</span>
-                Food
+                Food (Day 3)
               </div>
               <div class="row-right">
-                <span class="item-price">₱2,800</span>
+                <span class="item-price">₱3,150</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Group meals for the day</td><td>~₱2,800</td></tr>
+                <tr><td>Group meals (~₱450/head × 7)</td><td>~₱3,150</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱2,800</span></div>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,150</span></div>
             </div>
           </div>
 
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-blue">&#128664;</span>
+                <span class="row-icon icon-orange">&#128663;</span>
                 Miscellaneous
               </div>
               <div class="row-right">
@@ -777,9 +908,12 @@
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Transport and misc expenses in Panglao</td><td>~₱1,200</td></tr>
+                <tr><td>Parking fees</td><td>~incl.</td></tr>
+                <tr><td>Local transport</td><td>~incl.</td></tr>
+                <tr><td>Snacks</td><td>~incl.</td></tr>
+                <tr><td>Convenience store purchases</td><td>~incl.</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱1,200</span></div>
+              <div class="detail-subtotal"><span>Allocation</span><span>₱1,200</span></div>
             </div>
           </div>
 
@@ -790,30 +924,66 @@
       <div class="day-card">
         <div class="day-card-header">
           <div class="day-label-group">
-            <span class="day-badge d4">Day 4</span>
-            <span class="day-title">Return Home</span>
+            <span class="day-badge d4">Day 4 — June 7</span>
+            <span class="day-title">Panglao → Tagbilaran → Cebu (Checkout 3:00 PM)</span>
           </div>
-          <span class="day-total">~₱2,890</span>
+          <span class="day-total">~₱3,500</span>
         </div>
         <div class="itinerary-list">
 
           <div class="itinerary-item">
             <div class="itinerary-row" onclick="toggleItem(this)">
               <div class="row-left">
-                <span class="row-icon icon-amber">&#127759;</span>
-                Food + Transport (reduced)
+                <span class="row-icon icon-amber">&#127859;</span>
+                Food + Transport (Departure Day)
               </div>
               <div class="row-right">
-                <span class="item-price">₱2,890</span>
+                <span class="item-price">₱3,500</span>
                 <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="itinerary-detail">
               <table class="detail-table">
-                <tr><td>Food for the day</td><td>~₱1,390</td></tr>
-                <tr><td>Local transport</td><td>~₱1,500</td></tr>
+                <tr><td>Meals before departure</td><td>~incl.</td></tr>
+                <tr><td>Fuel allowance adjustment</td><td>~incl.</td></tr>
+                <tr><td>Small expenses before port</td><td>~incl.</td></tr>
               </table>
-              <div class="detail-subtotal"><span>Subtotal</span><span>₱2,890</span></div>
+              <p style="font-size:0.8rem; color:var(--ink-light); margin-top:8px;">Airbnb checkout at 3:00 PM.</p>
+              <div class="detail-subtotal"><span>Subtotal</span><span>₱3,500</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GAS + CAR WASH -->
+      <div class="day-card">
+        <div class="day-card-header">
+          <div class="day-label-group">
+            <span class="day-badge" style="background:#f3f4f6;color:#374151;">Whole Trip</span>
+            <span class="day-title">&#9981; Gas Allocation + Car Wash</span>
+          </div>
+          <span class="day-total">~₱6,000</span>
+        </div>
+        <div class="itinerary-list">
+
+          <div class="itinerary-item">
+            <div class="itinerary-row" onclick="toggleItem(this)">
+              <div class="row-left">
+                <span class="row-icon icon-blue">&#9981;</span>
+                Fuel + Car Wash (Whole Trip)
+              </div>
+              <div class="row-right">
+                <span class="item-price">₱6,000</span>
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="itinerary-detail">
+              <table class="detail-table">
+                <tr><td>Gas — full trip allocation (long-distance driving)</td><td>~incl.</td></tr>
+                <tr><td>Car wash before vehicle return</td><td>~incl.</td></tr>
+              </table>
+              <div class="detail-subtotal"><span>Total Allocation</span><span>₱6,000</span></div>
             </div>
           </div>
 
@@ -830,7 +1000,7 @@
     <div class="section-title">
       <div class="eyebrow">Navigation</div>
       <h2>Interactive Trip Map</h2>
-      <p>All major destinations in the itinerary, in order.</p>
+      <p>All major destinations in the itinerary, color-coded by day.</p>
     </div>
     <div id="map"></div>
   </div>
@@ -842,7 +1012,7 @@
     <div class="section-title">
       <div class="eyebrow">Summary</div>
       <h2>Budget Summary</h2>
-      <p>Final figures excluding ferry or boat fares.</p>
+      <p>Final figures. Boat fares excluded as personal expense. Airbnb already confirmed.</p>
     </div>
 
     <div class="summary-grid">
@@ -850,53 +1020,70 @@
       <div class="card">
         <h3>Grand Total</h3>
         <table class="budget-table">
-          <tr><td>Day 1 — Ubay to Loay</td><td>~₱7,570</td></tr>
-          <tr><td>Day 2 — Danao, Loboc, Sikatuna</td><td>~₱16,040</td></tr>
-          <tr><td>Day 3 — Panglao stay</td><td>~₱9,500</td></tr>
-          <tr><td>Day 4 — Return</td><td>~₱2,890</td></tr>
+          <tr><td>Day 1 — Cebu → Tagbilaran → Danao → Loay</td><td>~₱10,950</td></tr>
+          <tr><td>Day 2 — Loay → Alicia → Anda → Falls → Loay</td><td>~₱9,070</td></tr>
+          <tr><td>Day 3 — Panglao Stay</td><td>~₱8,950</td></tr>
+          <tr><td>Day 4 — Departure</td><td>~₱3,500</td></tr>
+          <tr><td>Gas + Car Wash (Whole Trip)</td><td>~₱6,000</td></tr>
         </table>
         <div class="subtotal-row">
-          <span>Subtotal</span>
-          <span>₱36,000</span>
+          <span>Estimated Grand Total</span>
+          <span>~₱38,470</span>
         </div>
         <div class="buffer-block">
-          <h4>₱4,000 buffer — realistic allocation</h4>
+          <h4>~₱1,530 remaining buffer before ₱40k cap</h4>
           <table>
-            <tr><td>Fuel variance / van tolls</td><td>~₱1,500</td></tr>
-            <tr><td>Extra meals / snacks in Panglao</td><td>~₱1,200</td></tr>
-            <tr><td>Emergency buffer (weather, extra fees)</td><td>~₱1,300</td></tr>
+            <tr><td>Additional Danao rides</td><td>possible</td></tr>
+            <tr><td>Better food spots</td><td>possible</td></tr>
+            <tr><td>Emergency expenses</td><td>possible</td></tr>
+            <tr><td>Parking fees / extra fuel variance</td><td>possible</td></tr>
+            <tr><td>Convenience store / snack runs</td><td>possible</td></tr>
           </table>
         </div>
         <div class="locked-row">
-          <span>Final locked total</span>
+          <span>Budget cap</span>
           <span>₱40,000</span>
         </div>
       </div>
 
       <div class="card">
-        <h3>Optimization Summary</h3>
-        <div class="opt-grid">
-          <div class="opt-block cuts">
-            <h5>Cuts applied</h5>
-            <ul>
-              <li>Reduced Danao activity package</li>
-              <li>Downgraded Airbnb tier</li>
-              <li>Trimmed falls stop cost</li>
-              <li>Controlled Panglao expenses</li>
-            </ul>
+        <h3>Main Cost Drivers</h3>
+        <div class="drivers-grid">
+          <div class="driver-row">
+            <div class="driver-left">⛽ Gas Allocation <span class="driver-note">Long-distance driving</span></div>
+            <div class="driver-right">~₱6,000</div>
           </div>
-          <div class="opt-block kept">
-            <h5>Kept intact</h5>
-            <ul>
-              <li>Loboc River Cruise</li>
-              <li>Alicia hike</li>
-              <li>Van transport</li>
-            </ul>
+          <div class="driver-row">
+            <div class="driver-left">🍛 Food <span class="driver-note">Biggest recurring group expense</span></div>
+            <div class="driver-right">~₱10,150</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-left">🚗 Car Rental <span class="driver-note">Fixed transportation cost</span></div>
+            <div class="driver-right">~₱6,000</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-left">🎢 Danao Activities <span class="driver-note">Adjustable expenses</span></div>
+            <div class="driver-right">~₱3,450</div>
+          </div>
+          <div class="driver-row">
+            <div class="driver-left">🏡 Airbnb <span class="driver-note">Already booked & confirmed</span></div>
+            <div class="driver-right">~₱4,600</div>
           </div>
         </div>
-        <div class="note-block">
-          Boat fares excluded from computation. The ₱4,000 gap is an intentional buffer — not a missing cost. You are ₱4,000 under the ₱40k cap by design.
-        </div>
+      </div>
+
+      <div class="card">
+        <h3>Important Notes</h3>
+        <ul class="notes-list">
+          <li>All prices are estimates only (~). Actual costs may vary.</li>
+          <li>Boat fare is excluded — treated as a personal expense per person.</li>
+          <li>Airbnb in Panglao is already confirmed and booked at ~₱4,600 total.</li>
+          <li>Friend's house in Loay for Days 1 & 2 greatly reduces accommodation costs.</li>
+          <li>Danao activity budget is flexible — final rides chosen by individual participants.</li>
+          <li>Panglao activities are mostly free unless entering private beaches.</li>
+          <li>Main transportation is self-drive car rental (not a van with driver).</li>
+          <li>₱1,530 buffer remains before hitting the ₱40k cap.</li>
+        </ul>
       </div>
 
     </div>
@@ -920,32 +1107,24 @@
         <h4>Alicia Entrance Fee Discussion</h4>
         <p>reddit.com</p>
       </a>
-      <a class="source-link" target="_blank" href="https://thefroggyadventures.com/cabagnow-cave-pool-bohol/">
-        <h4>Cabagnow Cave Pool</h4>
-        <p>thefroggyadventures.com</p>
-      </a>
       <a class="source-link" target="_blank" href="https://www.danaoadventurepark.com/">
         <h4>Danao Adventure Park</h4>
         <p>danaoadventurepark.com</p>
       </a>
-      <a class="source-link" target="_blank" href="https://boholautorental.com/a-visitors-guide-to-the-sikatuna-mirror-of-the-world/">
-        <h4>Mirror of the World Guide</h4>
-        <p>boholautorental.com</p>
-      </a>
-      <a class="source-link" target="_blank" href="https://infobohol.com/mirror-of-the-world-sikatuna-bohol/">
-        <h4>Mirror of the World Rates</h4>
-        <p>infobohol.com</p>
-      </a>
       <a class="source-link" target="_blank" href="https://www.airbnb.com/s/Panglao--Bohol--Philippines/homes">
         <h4>Panglao Airbnb Listings</h4>
         <p>airbnb.com</p>
+      </a>
+      <a class="source-link" target="_blank" href="https://bohol.gov.ph/tourism/">
+        <h4>Bohol Tourism</h4>
+        <p>bohol.gov.ph</p>
       </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <p><span>Bohol Trip w D1s</span> &mdash; Budget estimates may vary depending on season and negotiations.</p>
+  <p><span>Bohol Trip w D1s</span> &mdash; Budget estimates may vary depending on season and negotiations. Boat fares excluded.</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -954,29 +1133,30 @@
     row.closest('.itinerary-item').classList.toggle('open');
   }
 
-  const map = L.map('map').setView([9.877, 124.215], 10);
+  const map = L.map('map').setView([9.85, 124.15], 10);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
   const locations = [
-    { name: 'Ubay', coords: [10.0626, 124.4720], desc: 'Arrival point', day: 1 },
-    { name: 'Alicia Panoramic Park', coords: [9.8942, 124.5374], desc: 'Scenic hiking destination', day: 1 },
-    { name: 'Anda', coords: [9.7434, 124.5764], desc: 'Beach and cave pools', day: 1 },
-    { name: 'Loay', coords: [9.6007, 124.0140], desc: 'Rest area / home base', day: 1 },
-    { name: 'Danao Adventure Park', coords: [9.9357, 124.1862], desc: 'Extreme rides and activities', day: 2 },
-    { name: 'Loboc River Cruise', coords: [9.6380, 124.0346], desc: 'Buffet lunch cruise', day: 2 },
-    { name: 'Mirror of the World', coords: [9.6886, 123.9969], desc: 'Tourist attraction in Sikatuna', day: 2 },
-    { name: 'Panglao', coords: [9.5781, 123.7458], desc: 'Airbnb and beach stay', day: 3 }
+    { name: 'Tagbilaran (Arrival)', coords: [9.6568, 123.8532], desc: 'Day 1 — Arrival point, claim rented vehicle', day: 1 },
+    { name: 'Danao Adventure Park', coords: [9.9357, 124.1862], desc: 'Day 1 — Main activity: Suislide, SkyRide, The Plunge', day: 1 },
+    { name: 'Loay (Friend\'s House)', coords: [9.6007, 124.0140], desc: 'Day 1 & 2 — Rest base, free overnight stay', day: 1 },
+    { name: 'Alicia Panoramic Park', coords: [9.8942, 124.5374], desc: 'Day 2 — Scenic hiking (₱100 entrance + ₱600 guide)', day: 2 },
+    { name: 'Anda', coords: [9.7434, 124.5764], desc: 'Day 2 — Beach and ocean (₱30 entrance + cottage)', day: 2 },
+    { name: 'Can-Umantad Falls', coords: [9.8260, 124.4620], desc: 'Day 2 — Waterfall stop (₱80 entrance + cottage)', day: 2 },
+    { name: 'Panglao (Airbnb)', coords: [9.5781, 123.7458], desc: 'Day 3 — Check-in 12:00 NN, checkout 3:00 PM Day 4', day: 3 }
   ];
 
   const dayColors = { 1: '#0369a1', 2: '#92400e', 3: '#166534', 4: '#9f1239' };
+  const dayLabels = { 1: 'Day 1', 2: 'Day 2', 3: 'Day 3' };
 
   const routeCoords = [];
 
   locations.forEach(loc => {
     const color = dayColors[loc.day] || '#0369a1';
+    const label = dayLabels[loc.day] || '';
     const icon = L.divIcon({
       className: '',
       html: `<div style="width:14px;height:14px;background:${color};border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>`,
@@ -986,7 +1166,7 @@
 
     L.marker(loc.coords, { icon })
       .addTo(map)
-      .bindPopup(`<strong>${loc.name}</strong><br><span style="color:#64748b;font-size:0.85em">${loc.desc}</span>`);
+      .bindPopup(`<strong>${loc.name}</strong><br><span style="color:#64748b;font-size:0.85em">${label} — ${loc.desc}</span>`);
 
     routeCoords.push(loc.coords);
   });
